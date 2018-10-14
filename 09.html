@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <title>Select</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table td {
+            padding: 5px 10px;
+            border: 1px solid grey;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div ng-app='myApp' ng-controller="selectCtrl">
+        <select ng-init="selectedSite = names[0]" ng-model="selectedSite" ng-options="x.site for x in names"></select>
+        <h2>您选择的是：{{selectedSite.site}}, 网址：{{selectedSite.url}}</h2>
+        <hr>
+        <label><input type='checkbox' ng-model='isShow'>是否显示</label>
+        <button ng-disabled='isShow'>Disabled</button>
+        <table ng-show='isShow'>
+            <tr ng-repeat="item in names | orderBy: 'site'">
+                <td>{{$index + 1}}</td>
+                <td>{{item.site | uppercase}}</td>
+                <td>{{item.url}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var app = angular.module('myApp', [])
+        app.controller('selectCtrl', function($scope) {
+            $scope.names = [{site: 'Google', url: 'http://www.google.com'}, {site: 'Baidu', url: 'http://www.baidu.com'}, {site: 'Yahoo', url: 'http://www.yahoo.com'}]
+            $scope.isShow = true;
+        })
+    </script>
+</body>
+</html>

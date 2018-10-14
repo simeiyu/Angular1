@@ -1,0 +1,35 @@
+<!-- 
+    AngularJS应用
+    Angular JS模块（Module）定义了AngularJS应用
+    Angular JS控制器（Controller）用于控制AngularJS应用
+    ng-app指令指明了应用，ng-controller指明了控制器
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+</head>
+ <body>
+
+    <div ng-app="myApp" ng-controller="myCtrl" ng-init="list=[1,2,3,4,5]">
+        名: <input type="text" ng-model="firstName"><br>
+        姓: <input type="text" ng-model="lastName"><br>
+        <br />
+        姓名：{{firstName + " " + lastName}}
+        <br>
+        <ul>
+            <li ng-repeat="n in list">
+                {{n}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName= "John";
+            $scope.lastName= "Doe";
+        });
+    </script>
+ </body>
+ </html>

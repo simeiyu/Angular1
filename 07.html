@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <title>创建自定义服务</title>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h4>{{hex}}</h4>
+        <h2>{{ 658 | myFormit }}</h2>
+        <h2>{{ 255 | myFormit }}</h2>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.service('hexafy', function() {
+            this.myFunc = function(x) {
+                return x.toString(16);
+            }
+        });
+        app.controller('myCtrl', function($scope, hexafy) {
+            $scope.hex = hexafy.myFunc(255)
+        });
+        app.filter('myFormit', ['hexafy', function(hexafy) {
+            return function(x) {
+                return hexafy.myFunc(x)
+            }
+        }])
+    </script>
+</body>
+</html>
